@@ -3,242 +3,41 @@ Point of Sale (POS) System for Small Businesses
 Title & Description
 This project is a transaction-based application designed to manage and record sales in small businesses. The system captures product details such as name, quantity, and price during each purchase. It automatically generates receipts and securely stores transaction records for tracking and review. Additionally, it provides daily, weekly, and monthly sales summaries to help business owners monitor revenue and identify sales trends. The system is built incrementally and can be expanded as business needs grow.
 
+Developers (BSCS-1B)
+Requierme, Shella Mae B.
+Lamoste, Nestle Marie V.
+Lastimado, Dissere S.
+Ronquillo, Felecil Mae O.
+
+Project Description
+Sales Transaction Processing: This is the process of recording and completinga customers purchase by calculating the total amount, updating stock levels,and saving the transaction details int the sysytem.
+Receipt Generation for Customer: This is the process of creating and providing a receipt to the customer as proof of purchase, showing the items bought, prices, total amount, and payment details.
+Sales Summary and Reporting: This refers to generating reports that summarizes sales data, such as total sales, numbers of transactions, and best selling products, to help monitor business performance.
+
+
 Prerequisites
-- Python 
+- Python
+- Flask
+- Pip
 - html
 - Basic understanding of Object-Oriented Programming (OOP)
 - Terminal or command prompt access
 
-Installation
+Installation & Setup
 Step 1: Clone or download the project files
 Step 2: Navigate to the project folder
 Step 3: Run the program using: python main.py
-Usage
+
+Usage Guide
 Example workflow:
 Create a cart, add items, display selected products, and proceed to checkout where the system calculates the total and generates a receipt.
 
-Module: Full Description
-Sales Transaction Processing
-This module handles the complete purchase process. It records each item selected by the customer, calculates the total amount, updates stock levels, and stores transaction data to ensure accurate tracking of sales.
-Receipt Generation for Customer
-After completing a transaction, the system generates a receipt that includes product names, quantities, individual prices, total cost, and payment details. This serves as proof of purchase.
-Sales Summary and Reporting
-This module provides summarized reports of sales data, including total transactions, total revenue, and best-selling products. It also generates daily, weekly, and monthly reports to help business owners analyze performance.
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>Module 1 - Sales Transaction</title>
-
-<style>
-body{
-    font-family:Arial;
-    background:#f2f2f2;
-    padding:20px;
-}
-
-.container{
-    background:white;
-    padding:20px;
-    width:60%;
-    margin:auto;
-    border-radius:10px;
-    box-shadow:0 0 10px gray;
-}
-
-h1{
-    text-align:center;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:15px;
-}
-
-th,td{
-    border:1px solid gray;
-    padding:10px;
-    text-align:center;
-}
-
-button{
-    padding:10px 20px;
-    margin-top:15px;
-    background:green;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:darkgreen;
-}
-
-input{
-    width:70px;
-    padding:5px;
-}
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>Sales Transaction</h1>
-
-<table>
-<tr>
-<th>Product</th>
-<th>Price</th>
-<th>Stock</th>
-<th>Quantity</th>
-</tr>
-
-<tr>
-<td>Notebook</td>
-<td>50</td>
-<td>20</td>
-<td><input type="number" id="q1" min="0"></td>
-</tr>
-
-<tr>
-<td>Ballpen</td>
-<td>10</td>
-<td>50</td>
-<td><input type="number" id="q2" min="0"></td>
-</tr>
-
-<tr>
-<td>Pencil</td>
-<td>8</td>
-<td>40</td>
-<td><input type="number" id="q3" min="0"></td>
-</tr>
-
-<tr>
-<td>Eraser</td>
-<td>5</td>
-<td>30</td>
-<td><input type="number" id="q4" min="0"></td>
-</tr>
-
-<tr>
-<td>Marker</td>
-<td>25</td>
-<td>25</td>
-<td><input type="number" id="q5" min="0"></td>
-</tr>
-
-<tr>
-<td>Ruler</td>
-<td>20</td>
-<td>35</td>
-<td><input type="number" id="q6" min="0"></td>
-</tr>
-
-</table>
-
-<br>
-
-Discount %
-<input type="number" id="discount" value="0">
-
-<br><br>
-
-Payment
-<input type="number" id="payment">
-
-<br>
-
-<button onclick="checkout()">Checkout</button>
-
-<h2 id="result"></h2>
-
-</div>
-
-<script>
-const products = [
-{name:"Notebook",price:50,stock:20},
-{name:"Ballpen",price:10,stock:50},
-{name:"Pencil",price:8,stock:40},
-{name:"Eraser",price:5,stock:30},
-{name:"Marker",price:25,stock:25},
-{name:"Ruler",price:20,stock:35}
-];
-
-function checkout(){
-
-let items=[];
-let subtotal=0;
-
-for(let i=1;i<=6;i++){
-
-let qty=parseInt(document.getElementById("q"+i).value)||0;
-
-if(qty>products[i-1].stock){
-alert("Quantity exceeds stock");
-return;
-}
-
-if(qty>0){
-
-let total=qty*products[i-1].price;
-
-items.push({
-name:products[i-1].name,
-price:products[i-1].price,
-qty:qty,
-total:total
-});
-
-subtotal+=total;
-}
-}
-
-if(items.length==0){
-alert("Add at least one item");
-return;
-}
-
-let discount=parseFloat(document.getElementById("discount").value)||0;
-let total=subtotal-(subtotal*(discount/100));
-
-let payment=parseFloat(document.getElementById("payment").value)||0;
-
-if(payment<total){
-alert("Payment must be complete");
-return;
-}
-
-let sale={
-id:"SALE"+Date.now(),
-items:items,
-subtotal:subtotal,
-discount:discount,
-total:total,
-payment:payment,
-date:new Date().toLocaleString()
-};
-
-localStorage.setItem("latestSale",JSON.stringify(sale));
-
-let history=JSON.parse(localStorage.getItem("salesHistory"))||[];
-history.push(sale);
-
-localStorage.setItem("salesHistory",JSON.stringify(history));
-
-document.getElementById("result").innerHTML="Total: "+total;
-
-window.location="module2.html";
-
-}
-</script>
-
-</body>
-</html>
+Module Description
+Module 1: Sales Transaction Processing
+- Select and add items to transaction
+- Enter quantity per item
+- Automatically compute subtotal and total amount
+- Apply discounts(if applicabcle)
+- Process payments(cash or digital)
+- Automatically deduct stock after succesfully sale
+- Record transaction date and time
