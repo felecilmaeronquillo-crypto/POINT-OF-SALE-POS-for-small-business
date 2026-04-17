@@ -43,4 +43,60 @@ Module Description - Module 1: Sales Transaction Processing
 - Record transaction date and time
 
 
-Module Description - Module 2: 
+Module 2: Receipt Generation of Customers
+
+Access
+Admin and User | Route: /receipt Generation for Customers
+
+Features
+
+1. Automatic Receipt Generation
+The system automatically creates a receipt after each completed sale. This ensures that every transaction is properly recorded without manual input.
+
+2. Display Purchased Items
+The receipt shows a detailed list of all purchased items, including product name, quantity, and price for each item.
+
+3. Display Payment Details
+The system clearly shows:
+
+Subtotal
+Total amount
+Payment received
+This ensures transparency and accuracy in every transaction.
+
+4. Transaction Date and Time
+Each receipt includes the exact date and time when the transaction was completed.
+
+5. Receipt Output and Storage
+Receipts can be:
+
+Printed
+Sent digitally (e.g., email)
+Automatically saved in the system for future reference
+
+
+ Example Workflow:
+
+1. Customer selects items to purchase in the system
+2. System displays selected items with quantity and price
+3. System automatically calculates:
+Subtotal
+Total amount
+4. Cashier/Admin reviews the transaction details
+5. Customer provides payment
+6. Cashier enters the payment into the system
+7. System validates payment:
+If payment is incomplete → receipt cannot be generated
+If payment is complete → proceed
+8.. System generates the receipt automatically with:
+Unique Sales ID
+Date and time of transaction
+Detailed list of purchased items
+Subtotal and total amount
+Payment received
+9. Receipt is displayed on screen
+10. User selects output option:
+Print receipt
+Send digitally
+11. System saves a copy of the receipt
+12. Receipt is finalized and becomes non-editable
