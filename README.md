@@ -41,3 +41,6 @@ Module Description - Module 1: Sales Transaction Processing
 - Process payments(cash or digital)
 - Automatically deduct stock after succesfully sale
 - Record transaction date and time
+
+
+Module Description - Module 2: 
