@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Module 2 - Receipt</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+    padding:20px;
+}
+
+.receipt{
+    width:350px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border:2px solid black;
+}
+
+h2{
+    text-align:center;
+}
+
+.info{
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.info div{
+    display:flex;
+    justify-content:space-between;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+}
+
+th,td{
+    padding:5px;
+    border-bottom:1px dashed gray;
+    text-align:right;
+}
+
+td:first-child{
+    text-align:left;
+}
+
+th{
+    border-bottom:2px solid black;
+}
+
+.total div{
+    display:flex;
+    justify-content:space-between;
+    margin:4px 0;
+}
+
+.bold{
+    font-weight:bold;
+    border-top:2px solid black;
+    padding-top:5px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    margin-top:15px;
+    background:black;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="receipt">
+
+<h2>STORE RECEIPT</h2>
+
+<div class="info">
+<div><span>ID:</span><span id="saleId"></span></div>
+<div><span>Date:</span><span id="date"></span></div>
+</div>
+
+<table id="itemsTable">
+<tr>
+<th>Item</th>
+<th>Price</th>
+<th>Qty</th>
+<th>Total</th>
+</tr>
+</table>
+
+<div class="total">
+<div><span>Subtotal</span><span id="subtotal"></span></div>
+<div><span>Discount</span><span id="discount"></span></div>
+<div class="bold"><span>Total</span><span id="total"></span></div>
+<div><span>Payment</span><span id="payment"></span></div>
+<div><span>Change</span><span id="change"></span></div>
+</div>
+
+<button onclick="window.print()">Print Receipt</button>
+
+</div>
+
+<script>
+
+function peso(a){
+    return "₱" + a.toFixed(2);
+}
+
+let sale = JSON.parse(localStorage.getItem("latestSale"));
+
+if(!sale){
+alert("No transaction found");
+}
+
+document.getElementById("saleId").innerText = sale.id;
+document.getElementById("date").innerText = sale.date;
+
+let table = document.getElementById("itemsTable");
+
+sale.items.forEach(item=>{
+let row = table.insertRow();
+
+row.innerHTML = `
+<td>${item.name}</td>
+<td>${peso(item.price)}</td>
+<td>${item.qty}</td>
+<td>${peso(item.total)}</td>
+`;
+});
+
+document.getElementById("subtotal").innerText = peso(sale.subtotal);
+document.getElementById("discount").innerText = sale.discount + "%";
+document.getElementById("total").innerText = peso(sale.total);
+document.getElementById("payment").innerText = peso(sale.payment);
+document.getElementById("change").innerText = peso(sale.change);
+
+</script>
+
+</body>
+</html>
