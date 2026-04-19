@@ -24,32 +24,32 @@ Prerequisites
 - Terminal or command prompt access
 
 Installation & Setup
-- Step 1: Clone or download the project files
-- Step 2: Navigate to the project folder
-- Step 3: Run the program using: python main.py
+- Step 1: Clone or download the project files.
+- Step 2: Navigate to the project folder.
+- Step 3: Run the program using: python main.py.
 
 Usage Guide
 Example workflow:
 Create a cart, add items, display selected products, and proceed to checkout, where the system calculates the total and generates a receipt. 
 
-Module Description - Module 1: Sales Transaction Processing
+Module Description - Module 1: Sales Transaction Processing.
   
-- Select and add items to the transaction
-- Enter quantity per item
-- Automatically compute the subtotal and total amount
-- Apply discounts(if applicable)
-- Process payments(cash or digital)
-- Automatically deduct stock after a successful sale
-- Record transaction date and time
+- Select and add items to the transaction.
+- Enter quantity per item.
+- Automatically compute the subtotal and total amount.
+- Apply discounts (if applicable).
+- Process payments (cash or digital).
+- Automatically deduct stock after a successful sale.
+- Record transaction date and time.
 
 
-Module Description - Module 2: Receipt Generations for Customers
+Module Description - Module 2: Receipt Generations for Customers.
 
-- Automatically create a receipt after each sale
-- Show a detailed list of purchased items
-- Display subtotal, total, and payment received
-- Include transaction date and time
-- Print the receipt or send it digitally and save a copy in the system
+- Automatically create a receipt after each sale.
+- Show a detailed list of purchased items.
+- Display subtotal, total, and payment received.
+- Include transaction date and time.
+- Print the receipt or send it digitally and save a copy in the system.
 
 
 
