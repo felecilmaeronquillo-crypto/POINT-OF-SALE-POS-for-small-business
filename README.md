@@ -10,16 +10,16 @@ Developers (BSCS-1B)
 - Ronquillo, Felecil Mae O.
 
 Project Description
-- Sales Transaction Processing: This is the process of recording and completinga customers purchase by calculating the total amount, updating stock levels,and saving the transaction details int the sysytem.
+- Sales Transaction Processing: This is the process of recording and completing a customer's purchase by calculating the total amount, updating stock levels, and saving the transaction details in the system.
 - Receipt Generation for Customer: This is the process of creating and providing a receipt to the customer as proof of purchase, showing the items bought, prices, total amount, and payment details.
-- Sales Summary and Reporting: This refers to generating reports that summarizes sales data, such as total sales, numbers of transactions, and best selling products, to help monitor business performance.
+- Sales Summary and Reporting: This refers to generating reports that summarize sales data, such as total sales, number of transactions, and best-selling products, to help monitor business performance.
 
 
 Prerequisites
 - Python
 - Flask
 - Pip
-- html
+- Html
 - Basic understanding of Object-Oriented Programming (OOP)
 - Terminal or command prompt access
 
@@ -30,16 +30,16 @@ Installation & Setup
 
 Usage Guide
 Example workflow:
-Create a cart, add items, display selected products, and proceed to checkout where the system calculates the total and generates a receipt. 
+Create a cart, add items, display selected products, and proceed to checkout, where the system calculates the total and generates a receipt. 
 
 Module Description - Module 1: Sales Transaction Processing
   
-- Select and add items to transaction
+- Select and add items to the transaction
 - Enter quantity per item
-- Automatically compute subtotal and total amount
-- Apply discounts(if applicabcle)
+- Automatically compute the subtotal and total amount
+- Apply discounts(if applicable)
 - Process payments(cash or digital)
-- Automatically deduct stock after succesfully sale
+- Automatically deduct stock after a successful sale
 - Record transaction date and time
 
 
