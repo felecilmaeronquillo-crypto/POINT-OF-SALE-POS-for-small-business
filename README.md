@@ -54,11 +54,11 @@ Module Description - Module 2: Receipt Generations for Customers.
 
 Module 3: Sales Summary and Reporting
 
--Create daily and monthly sales reports
--Show total number of transactions
--Highlight best-selling products
--Calculate total revenue for the period
--View past sales history easily
+- Create daily and monthly sales reports
+- Show total number of transactions
+- Highlight best-selling products
+- Calculate total revenue for the period
+- View past sales history easily
 
 
 
