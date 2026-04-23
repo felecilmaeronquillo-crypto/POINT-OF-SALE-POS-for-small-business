@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>POS Sales Summary & Reporting</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+    font-family: Arial;
+    background: #eef2f5;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.filters input, .filters select, .filters button {
+    padding: 8px;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card {
+    width: 23%;
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th {
+    background: #34495e;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+canvas {
+    margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Sales Summary & Reporting</h1>
+
+<div class="filters">
+    <input type="date" id="date">
+    <select id="type">
+        <option value="daily">Daily</option>
+        <option value="monthly">Monthly</option>
+    </select>
+    <button onclick="generateReport()">Generate Report</button>
+</div>
+
+<div class="summary">
+    <div class="card">Total Sales<br><span id="sales">₱0</span></div>
+    <div class="card">Transactions<br><span id="transactions">0</span></div>
+    <div class="card">Best Seller<br><span id="best">-</span></div>
+    <div class="card">Revenue<br><span id="revenue">₱0</span></div>
+</div>
+
+<table id="table">
+<thead>
+<tr>
+<th>ID</th>
+<th>Product</th>
+<th>Qty</th>
+<th>Total</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<canvas id="barChart"></canvas>
+<canvas id="lineChart"></canvas>
+
+</div>
+
+<script>
+
+// 🔗 CONNECT THIS TO YOUR POS SYSTEM
+// Replace this with your real transaction data later
+const transactions = [
+    {id:1, product:"Milk Tea", qty:2, price:100, date:"2026-04-19"},
+    {id:2, product:"Burger", qty:1, price:150, date:"2026-04-19"},
+    {id:3, product:"Fries", qty:3, price:80, date:"2026-04-19"},
+    {id:4, product:"Milk Tea", qty:4, price:100, date:"2026-04-18"},
+    {id:5, product:"Soda", qty:2, price:60, date:"2026-04-19"},
+];
+
+let barChart, lineChart;
+
+function generateReport() {
+    const selectedDate = document.getElementById("date").value;
+    const type = document.getElementById("type").value;
+
+    let filtered = transactions.filter(t => {
+        if (!selectedDate) return true;
+
+        if (type === "daily") {
+            return t.date === selectedDate;
+        } else {
+            return t.date.slice(0,7) === selectedDate.slice(0,7);
+        }
+    });
+
+    // AUTO CALCULATE
+    let totalRevenue = 0;
+    let productCount = {};
+
+    filtered.forEach(t => {
+        let total = t.qty * t.price;
+        totalRevenue += total;
+
+        productCount[t.product] = (productCount[t.product] || 0) + t.qty;
+    });
+
+    let bestSeller = Object.keys(productCount).reduce((a,b) => 
+        productCount[a] > productCount[b] ? a : b, "-"
+    );
+
+    // UPDATE SUMMARY
+    document.getElementById("sales").innerText = "₱" + totalRevenue;
+    document.getElementById("transactions").innerText = filtered.length;
+    document.getElementById("best").innerText = bestSeller;
+    document.getElementById("revenue").innerText = "₱" + totalRevenue;
+
+    // TABLE
+    let tbody = document.querySelector("#table tbody");
+    tbody.innerHTML = "";
+
+    filtered.forEach(t => {
+        let total = t.qty * t.price;
+        tbody.innerHTML += `
+            <tr>
+                <td>${t.id}</td>
+                <td>${t.product}</td>
+                <td>${t.qty}</td>
+                <td>₱${total}</td>
+                <td>${t.date}</td>
+            </tr>
+        `;
+    });
+
+    // CHART DATA
+    let labels = Object.keys(productCount);
+    let values = Object.values(productCount);
+
+    // DESTROY OLD CHARTS
+    if (barChart) barChart.destroy();
+    if (lineChart) lineChart.destroy();
+
+    // BAR CHART
+    barChart = new Chart(document.getElementById("barChart"), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Product Sales',
+                data: values
+            }]
+        }
+    });
+
+    // LINE CHART
+    lineChart = new Chart(document.getElementById("lineChart"), {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Sales Trend',
+                data: values,
+                fill: false
+            }]
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>
